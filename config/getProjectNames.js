@@ -1,21 +1,12 @@
-/**
- * File Created by wangshuyan@cmhi.chinamobile.com at 2022/5/22.
- * Copyright 2022/5/22 CMCC Corporation Limited. * All rights reserved.
- *
- * This software is the confidential and proprietary information of
- * ZYHY Company. ("Confidential Information"). You shall not
- * disclose such Confidential Information and shall use it only in
- * accordance with the terms of the license. *
- *
- * @Desc
- * @author wangshuyan@cmhi.chinamobile.com
- * @date 2022/5/22
- * @version
- * */
 const path = require('path');
 const fs = require('fs');
+/*
+* getProjectNames 获取运行的项目名称
+* @projectNamesArgvs {Array}  const命令行中获取的项目名称参数、
+* */
 module.exports = function (projectNamesArgv) {
-    let projectNames = [], projectNamesResult = [];
+    let projectNames = [],
+        projectNamesResult = [];
     if (projectNamesArgv.length > 0) {
         projectNames = projectNamesArgv;
     } else {

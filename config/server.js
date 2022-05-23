@@ -1,20 +1,28 @@
-/**
- * File Created by wangshuyan@cmhi.chinamobile.com at 2022/5/22.
- * Copyright 2022/5/22 CMCC Corporation Limited. * All rights reserved.
- *
- * This software is the confidential and proprietary information of
- * ZYHY Company. ("Confidential Information"). You shall not
- * disclose such Confidential Information and shall use it only in
- * accordance with the terms of the license. *
- *
- * @Desc
- * @author wangshuyan@cmhi.chinamobile.com
- * @date 2022/5/22
- * @version */
+/*
+* import
+*  */
 const getProjectNames = require('./getProjectNames.js');
 const getProjectConfigCustom = require('./getProjectConfigCustom');
+const setProjectConfig = require('./setProjectConfig');
+const nodeBuild = require('./node.build');
+/*
+*  main
+* */
 const [env, ...projectNamesArgv] = process.argv.slice(2);
-const projectNames =  getProjectNames(projectNamesArgv);
-console.log(projectNames);
-const projectConfigCustom = getProjectConfigCustom(projectNames,{env});
-console.log(projectConfigCustom);
+/*
+* getProjectNames 获取运行的项目名称
+* */
+const projectNames = getProjectNames(projectNamesArgv);
+/*
+* getProjectConfigCustom 获取运行的项目的自定义参数项
+* */
+const projectConfigCustom = getProjectConfigCustom(projectNames, { env });
+/*
+* setProjectConfig 获取项目配置
+* */
+const projectConfigs = setProjectConfig(projectConfigCustom);
+switch (env) {
+    case 'production':
+        nodeBuild(projectConfigs, env);
+        break;
+}
