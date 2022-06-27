@@ -8,6 +8,13 @@ module.exports = function webpackBuild (config) {
         output: {
             path: path.resolve(__dirname, '../unity'),
             filename: '[name].js'
+        },
+        module: {
+            rules: [
+                {
+                    test: /style\.css$/
+                }
+            ]
         }
     };
 };

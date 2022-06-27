@@ -4,11 +4,11 @@ const fs = require('fs');
 * getProjectNames 获取运行的项目名称
 * @projectNamesArgvs {Array}  const命令行中获取的项目名称参数、
 * */
-module.exports = function (projectNamesArgv) {
+module.exports = function (projectNamesFromArgv) {
     let projectNames = [],
         projectNamesResult = [];
-    if (projectNamesArgv.length > 0) {
-        projectNames = projectNamesArgv;
+    if (projectNamesFromArgv?.length > 0) {
+        projectNames = projectNamesFromArgv.split(',');
     } else {
         try {
             const data = fs.readFileSync(path.resolve(__dirname, '../.projectrc'), 'utf-8');
@@ -17,6 +17,7 @@ module.exports = function (projectNamesArgv) {
             projectNames = [];
         }
     }
+  
     projectNames.forEach(projectName => {
         projectName = projectName.trim();
         if (projectName && (/^[0-9a-zA-Z\/\\]*$/g).test(projectName)) {

@@ -15,13 +15,13 @@ const rm = require('rimraf');
 const path = require('path');
 const chalk = require('chalk');
 const webpack = require('webpack');
-const webpackBuild = require('./webpack.build');
+const webpackConfigConstructor = require('./webpackConfigConstructor');
 const pw = function (config) {
     process.env.PROJECT_CLIENT = config.client;
     process.env.FRAMEWORK_TYPE = config.framework = config.framework || 'vue';
+    const webpackConfig = webpackConfigConstructor(config);
     return new Promise((resolve, reject) => {
-        const webpackConfig = webpackBuild(config);
-        console.log(webpackConfig);
+        console.log(webpackConfig.module.rules[1]);
         webpack(webpackConfig, (err, stats) => {
             if (err) {
                 reject('Build ' + config.projectName + 'failed with errors.\n');
