@@ -21,7 +21,6 @@ const pw = function (config) {
     process.env.FRAMEWORK_TYPE = config.framework = config.framework || 'vue';
     const webpackConfig = webpackConfigConstructor(config);
     return new Promise((resolve, reject) => {
-        console.log(webpackConfig.module.rules[1]);
         webpack(webpackConfig, (err, stats) => {
             if (err) {
                 reject('Build ' + config.projectName + 'failed with errors.\n');

@@ -22,8 +22,9 @@ const projectConfigCustom = getProjectConfigCustom(projectNames, { env });
 * */
 
 const projectConfigs = setProjectConfig(projectConfigCustom);
+console.log(projectConfigs);
 switch (env) {
     case 'production':
-        nodeBuild(projectConfigs, env);
+        nodeBuild(projectConfigs);
         break;
 }
