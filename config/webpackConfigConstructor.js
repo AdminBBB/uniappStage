@@ -15,6 +15,8 @@ const webpackBuild = require('./webpack.build');
 const webpackBasic = require('./webpack.basic');
 const { merge } = require('webpack-merge');
 module.exports = function (config) {
+    process.env.PROJECT_CLIENT = config.client;
+    process.env.FRAMEWORK_TYPE = config.framework = config.framework || 'react';
     const env = config.env;
     const webpackTypes = {
         production: webpackBuild
