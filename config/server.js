@@ -22,6 +22,7 @@ console.log(projectConfigCustom);
 /*
 * setProjectConfig 获取项目配置
 * */
+
 const projectConfigs = setProjectConfig(projectConfigCustom);
 /*
 * 获取webpack配置信息  获取项目配置
@@ -29,6 +30,6 @@ const projectConfigs = setProjectConfig(projectConfigCustom);
 const webpackConfig = webpackConfigConstructor(projectConfigs);
 switch (env) {
     case 'production':
-        nodeBuild(projectConfigs, env);
+        nodeBuild(projectConfigs);
         break;
 }
