@@ -15,15 +15,11 @@ const rm = require('rimraf');
 const path = require('path');
 const chalk = require('chalk');
 const webpack = require('webpack');
-const webpackConfigConstructor = require('./webpackConfigConstructor');
-const pw = function (config) {
-    process.env.PROJECT_CLIENT = config.client;
-    process.env.FRAMEWORK_TYPE = config.framework = config.framework || 'vue';
-    const webpackConfig = webpackConfigConstructor(config);
+const pw = function (webpackConfig) {
     return new Promise((resolve, reject) => {
         webpack(webpackConfig, (err, stats) => {
             if (err) {
-                reject('Build ' + config.projectName + 'failed with errors.\n');
+                reject('Build ' + webpackConfig.projectName + 'failed with errors.\n');
                 throw err.message;
             }
             process.stdout.write(stats.toString({
@@ -34,21 +30,21 @@ const pw = function (config) {
                 chunkModules: false
             }) + '\n\n');
             if (stats.hasErrors()) {
-                reject('Build ' + config.projectName + 'failed with errors.\n');
+                reject('Build ' + webpackConfig.projectName + 'failed with errors.\n');
                 process.exit(1);
             }
-            resolve('Build ' + config.projectName + ' complete.\n');
+            resolve('Build ' + webpackConfig.projectName + ' complete.\n');
         });
     });
 };
-module.exports = function nodeBuild (projectConfigs, env) {
-    if (projectConfigs.length > 0) {
+module.exports = function nodeBuild (webpackConfigs, env) {
+    if (webpackConfigs.length > 0) {
         rm(path.resolve(__dirname, '../unity/'), async err => {
             if (err) {
                 throw err;
             }
             const rs = [];
-            for (const config of projectConfigs) {
+            for (const config of webpackConfigs) {
                 try {
                     const r = await pw(config);
                     console.log(chalk.cyan(r));
