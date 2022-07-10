@@ -1,4 +1,7 @@
 const path = require('path');
+const utils = require('./utils');
+const glob = require('glob');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = function webpackBuild (config) {
     const webpackConfig = {
         module: {
@@ -9,10 +12,9 @@ module.exports = function webpackBuild (config) {
             ]
         }
     };
-    
     // 遍历src文件，生成入口list;
     function getEntries () {
-        const cwd = resolve('/src/' + config.projectName);
+        const cwd = utils.getProjectResPath(config.projectEntryPath);
         const options = {
             cwd
         };
@@ -40,15 +42,15 @@ module.exports = function webpackBuild (config) {
             dirname = path.dirname(entry);
             basename = path.basename(entry, '.js');
             const entryContent = {
-                content: [resolve('common/index.js')],
+                content: [utils.getRootResPath('common/index.js')],
                 pathname: (dirname === '.' ? '' : dirname + '/') + basename,
                 ejs: (glob.sync(dirname + '/' + basename + '.{ejs,html}', options))[0]
             };
             if (config.client === 'mobile') {
-                entryContent.content.unshift(resolve('common/clientMobile.js'));
+                entryContent.content.unshift(utils.getRootResPath('common/clientMobile.js'));
             }
             if (config.serviceWorker) {
-                entryContent.content.unshift(resolve('common/installSw.js'));
+                entryContent.content.unshift(utils.getRootResPath('common/installSw.js'));
             }
             if (fs.existsSync(`${cwd}/common/index.js`)) {
                 entryContent.content.push(`${cwd}/common/index.js`);
@@ -62,9 +64,9 @@ module.exports = function webpackBuild (config) {
     const entry = getEntries();
     entry.forEach((e) => {
         if (e) {
-            baseConfig.entry[e.pathname] = e.content;
+            webpackConfig.entry[e.pathname] = e.content;
         }
-        baseConfig.plugins.push(new HtmlWebpackPlugin({
+        webpackConfig.plugins.push(new HtmlWebpackPlugin({
             title: config.title || '',
             publicPath: 'auto',
             /* config */
@@ -82,8 +84,5 @@ module.exports = function webpackBuild (config) {
             chunksSortMode: 'auto'
         }));
     });
-    
-    
-    
     return webpackConfig;
 };

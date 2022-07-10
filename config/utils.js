@@ -12,7 +12,9 @@
  * @date 2022/7/3
  * @version */
 const path = require('path');
-exports.getProjectPath = function (propath = '', root = false) {
-    const rootPath = root ? '' : '../src/';
-    return path.resolve(__dirname, rootPath + propath);
+exports.getProjectResPath = function (propath = '') {
+    return path.resolve(__dirname, '../src/', propath);
+};
+exports.getRootResPath = function (propath = '') {
+    return path.resolve(__dirname, propath);
 };

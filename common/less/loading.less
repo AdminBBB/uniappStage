@@ -1,0 +1,68 @@
+@keyframes loading-stretch {
+    0%,
+    40%,
+    100% {
+        transform: scale(.6);
+        opacity: 1
+    }
+    20% {
+        transform: scale(0.4);
+        opacity: 0
+    }
+}
+@keyframes shakeBg {
+    25% {
+        opacity: 0
+    }
+    0%, 50%, 100% {
+        opacity: 1
+    }
+    
+}
+
+.loading-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #FFF; z-index: 9999;display: flex; justify-content: center;align-items: center;
+    font-size: 14px; color: #666;
+    .loading {
+        width: 100PX;
+        height: 36PX;
+        text-align: center;
+        font-size: 10PX;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -25PX;
+        margin-left: -50PX;
+        > div {
+            background: #69BBB3;
+            height: 12PX;
+            width: 12PX;
+            margin-right: 2PX;
+            display: inline-block;
+            animation: loading-stretch 2s infinite ease-in-out;
+            border-radius: 12PX;
+        }
+        .rect1 {
+            animation-delay: -0.8s;
+        }
+        .rect2 {
+            animation-delay: -0.7s;
+        }
+        .rect3 {
+            animation-delay: -0.6s;
+        }
+        .rect4 {
+            animation-delay: -0.5s;
+        }
+        .rect5 {
+            animation-delay: -0.4s;
+        }
+    }
+    &.img {
+        display: flex;justify-content: center;align-items: center;flex-direction: column;
+        img {display: block; margin-top: -45%;}
+    }
+    &.shakeBg {
+        background-size: cover;
+        animation: shakeBg 1.5s infinite linear;
+    }
+}

@@ -15,6 +15,9 @@ const rm = require('rimraf');
 const path = require('path');
 const chalk = require('chalk');
 const webpack = require('webpack');
+const { merge } = require('webpack-merge');
+const webpackBasic = require('./webpack.basic');
+const webpackBuild = require('./webpack.build');
 const pw = function (webpackConfig) {
     return new Promise((resolve, reject) => {
         webpack(webpackConfig, (err, stats) => {
@@ -37,16 +40,18 @@ const pw = function (webpackConfig) {
         });
     });
 };
-module.exports = function nodeBuild (webpackConfigs, env) {
-    if (webpackConfigs.length > 0) {
+module.exports = function nodeBuild (projectConfigs) {
+    if (projectConfigs.length > 0) {
         rm(path.resolve(__dirname, '../unity/'), async err => {
             if (err) {
                 throw err;
             }
             const rs = [];
-            for (const config of webpackConfigs) {
+            for (const config of projectConfigs) {
                 try {
-                    const r = await pw(config);
+                    const webpackConfig = merge(webpackBasic(config), webpackBuild(config));
+                    console.log(webpackConfig);
+                    //  const r = await pw(webpackConfig);
                     console.log(chalk.cyan(r));
                     rs.push(config.projectName);
                 } catch (e) {
