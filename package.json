@@ -6,9 +6,9 @@
   "scripts": {
     "testorigin": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run dev",
-    "dev": "node config/server.js development",
-    "test": "node config/server.js testing",
-    "build": "node config/server.js production"
+    "dev": "node config/cli.js development",
+    "test": "node config/cli.js testing",
+    "build": "node config/cli.js production"
   },
   "author": "wangshuyan@cmhi.chinamobile.com",
   "license": "ISC",

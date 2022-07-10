@@ -6,11 +6,11 @@ const getProjectConfigCustom = require('./getProjectConfigCustom');
 const setProjectConfig = require('./setProjectConfig');
 const nodeBuild = require('./node.build');
 /*
-*  main
+* 解析 node 参数
 * */
 const [env, projectNamesFromArgv] = process.argv.slice(2);
 /*
-* getProjectNames 获取运行的项目名称
+* getProjectNames 根据参数  获取运行的项目名称
 * */
 const projectNames = getProjectNames(projectNamesFromArgv);
 /*
