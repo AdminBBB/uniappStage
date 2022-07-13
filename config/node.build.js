@@ -12,7 +12,6 @@
  * @date 2022/5/23
  * @version */
 const rm = require('rimraf');
-const path = require('path');
 const chalk = require('chalk');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
@@ -52,7 +51,6 @@ module.exports = function nodeBuild (projectConfigs) {
                 try {
                     utils.setProcessEnv(config);
                     const webpackConfig = merge(webpackBasic(config), webpackBuild(config));
-                    console.log(webpackConfig);
                     const r = await pw(webpackConfig);
                     console.log(chalk.cyan(r));
                     rs.push(config.projectName);

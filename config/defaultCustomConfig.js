@@ -19,5 +19,6 @@ module.exports = {
     env: 'production',
     rootHtml: 'index',
     pages: false,
-    client: 'mobile'
+    client: 'mobile',
+    eGuardName: null
 };
