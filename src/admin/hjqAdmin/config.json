@@ -1,3 +1,4 @@
 {
-  "framework": "react"
+  "framework": "react",
+  "client": "mobile"
 }

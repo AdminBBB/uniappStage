@@ -12,10 +12,12 @@
  * @date 2022/7/10
  * @version */
 module.exports = {
-    projectEntryPath: '',
+    projectSourcePath: '',
     projectName: '',
     version: 'assets',
-    framework: 'reacct',
+    framework: 'react',
     env: 'production',
-    rootHtml: 'index'
+    rootHtml: 'index',
+    pages: false,
+    client: 'mobile'
 };

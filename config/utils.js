@@ -12,9 +12,16 @@
  * @date 2022/7/3
  * @version */
 const path = require('path');
-exports.getProjectResPath = function (propath = '') {
-    return path.resolve(__dirname, '../src/', propath);
+exports.getProjectResPath = function (projectPath = '') {
+    return path.resolve(__dirname, '../src/', projectPath);
 };
-exports.getRootResPath = function (propath = '') {
-    return path.resolve(__dirname, propath);
+exports.getProjectUnityPath = function (unityPath = '') {
+    return path.resolve(__dirname, '../unity/', unityPath);
+};
+exports.getRootPath = function (rootPath = '') {
+    return path.resolve(__dirname, '../' + rootPath);
+};
+exports.setProcessEnv = function (config) {
+    const { framework } = config;
+    process.env.FRAMEWORK_TYPE = framework;
 };

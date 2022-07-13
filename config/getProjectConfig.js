@@ -7,9 +7,9 @@ const defaultCustomConfig = require('./defaultCustomConfig');
 * getProjectConfigCustom 获取运行的项目的自定义参数项
 * @projectNames {Array} 项目名称
 * */
-function getProjectConfigContent (projectEntryPath = '') {
+function getProjectConfigContent (projectSourcePath = '') {
     let projectSource = null;
-    const projectPath = projectEntryPath ? `${projectEntryPath}/` : '';
+    const projectPath = projectSourcePath ? `${projectSourcePath}/` : '';
     const jsonPath = utils.getProjectResPath(projectPath + 'config.json');
     const jsPath = utils.getProjectResPath(projectPath + 'config.js');
     if (fs.existsSync(jsonPath)) {
@@ -20,17 +20,17 @@ function getProjectConfigContent (projectEntryPath = '') {
     }
     return projectSource !== null ? require(projectSource) : {};
 }
-module.exports = function (projectEntryPaths, exCustomConfig) {
+module.exports = function (projectSourcePaths, exCustomConfig) {
     let projectConfigs = [];
-    if (Array.isArray(projectEntryPaths) && projectEntryPaths.length > 0) {
-        for (const projectEntryPath of projectEntryPaths) {
-            if (fs.existsSync(utils.getProjectResPath(projectEntryPath))) {
-                const project = getProjectConfigContent(projectEntryPath);
-                project.projectEntryPath = 'src/' + projectEntryPath;
-                project.projectName = projectEntryPath.split(/\//ig).pop();
+    if (Array.isArray(projectSourcePaths) && projectSourcePaths.length > 0) {
+        for (const projectSourcePath of projectSourcePaths) {
+            if (fs.existsSync(utils.getProjectResPath(projectSourcePath))) {
+                const project = getProjectConfigContent(projectSourcePath);
+                project.projectSourcePath = projectSourcePath;
+                project.projectName = projectSourcePath.split(/\//ig).pop();
                 projectConfigs.push(merge({}, defaultCustomConfig, project, exCustomConfig));
             } else {
-                console.log(chalk.red('error:不存在的项目目录 -- ' + projectEntryPaths));
+                console.log(chalk.red('error:不存在的项目目录 -- ' + projectSourcePaths));
             }
         }
     } else {
@@ -38,7 +38,7 @@ module.exports = function (projectEntryPaths, exCustomConfig) {
         const rootProject = fs.existsSync(utils.getProjectResPath(''));
         if (rootProject) {
             const project = getProjectConfigContent();
-            project.projectName = project.projectEntryPath = 'root';
+            project.projectName = project.projectSourcePath = 'root';
             projectConfigs.push(merge({}, defaultCustomConfig, project, exCustomConfig));
         } else {
             projectConfigs = [];
