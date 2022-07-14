@@ -7,14 +7,16 @@ const styleLoader = require('./styleLoader');
 const utils = require('./utils');
 const getBabelConfig = require('./babelConfig');
 const getEntries = require('./getEntries');
+const { VueLoaderPlugin } = require('vue-loader');
+const merge = require('webpack-merge');
 module.exports = function webpackBuild (config) {
     const babelConfigOptions = getBabelConfig(config);
     const { webpackConfigEnties, HtmlWebpackPlugins } = getEntries(config);
     const webpackConfig = {
         entry: webpackConfigEnties,
         resolve: {
-            extensions: ['.js', 'jsx', '.vue', '.json', '.ts', '.tsx'],
-            alias: {}
+            extensions: ['.js', 'jsx', '.vue', '.json', '.ts', '.tsx']
+            // alias: { 'vue': 'vue/dist/vue.esm.js' }
         },
         module: {
             rules: [
@@ -23,7 +25,7 @@ module.exports = function webpackBuild (config) {
                     usePostCSS: true
                 }, config)),
                 {
-                    test: config.framework === 'vue' ? /\.js$/ : /\.js|jsx$/,
+                    test: /\.js|jsx$/,
                     use: {
                         loader: 'babel-loader',
                         options: babelConfigOptions
@@ -74,7 +76,26 @@ module.exports = function webpackBuild (config) {
             }
         }
     };
+    let configByFramework = {
+        react: {},
+        vue: {
+            module: {
+                rules: [
+                    {
+                        test: /\.vue$/,
+                        use: {
+                            loader: 'vue-loader'
+                        },
+                        include: [utils.getRootPath('common'), utils.getRootPath('src')]
+                    }
+                ]
+            },
+            plugins: [
+                new VueLoaderPlugin()
+            ]
+        }
+    };
     // 遍历src文件，生成入口list;
     // 获取入口
-    return webpackConfig;
+    return merge(webpackConfig, configByFramework[config.framework]);
 };

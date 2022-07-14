@@ -1,15 +1,5 @@
-import './style.less';
+import React from 'react';
+import ReactDom from 'react-dom';
+import { App } from './views/App';
 
-alert(2);
-const pro = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        resolve(1);
-    }, 200);
-});
-(async () => {
-    try {
-        const d = await pro;
-    } catch (e) {
-        console.log(e);
-    }
-})();
+ReactDom.render(<App/>, document.querySelector('#app'));
