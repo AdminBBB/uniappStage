@@ -12,13 +12,14 @@
  * @date 2022/7/10
  * @version */
 module.exports = {
-    projectSourcePath: '',
-    projectName: '',
-    version: 'assets',
-    framework: 'react',
-    env: 'production',
-    rootHtml: 'index',
-    pages: false,
-    client: 'mobile',
-    eGuardName: null
+    projectSourcePath: '', // user/myHomeIndex
+    projectPath: 'digitalhome',
+    projectName: '', //  myHomeIndex
+    version: 'assets',//  1.0.0
+    framework: 'react', // 'react'
+    env: 'production', // 'production'
+    rootHtml: 'index', // 'index' ||  ['index','page']
+    pages: false, // 'page'
+    client: 'mobile', // 'mobile'
+    eGuardName: null // 'eg'
 };

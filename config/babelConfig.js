@@ -1,4 +1,4 @@
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const librariesImportConfigsMap = {
     vue: [
         { libraryName: 'vant', libraryDirectory: 'es', style: true, 'camel2DashComponentName': true }

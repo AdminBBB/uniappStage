@@ -90,6 +90,7 @@ module.exports = function (config) {
             chunksSortMode: 'auto'
         }));
     });
+ 
     return {
         webpackConfigEnties,
         HtmlWebpackPlugins

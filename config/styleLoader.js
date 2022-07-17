@@ -1,11 +1,12 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const cssLoaders = function (options, config) {
+    const { cssModules, client } = config;
     options = options || {};
     const cssLoader = {
         loader: 'css-loader',
         options: {
             sourceMap: options.sourceMap,
-            modules: config.cssModules
+            modules: cssModules
         }
     };
     const postcssLoader = {
@@ -20,7 +21,7 @@ const cssLoaders = function (options, config) {
             }
         }
     };
-    if (config.client === 'mobile') {
+    if (client === 'mobile') {
         postcssLoader.options.postcssOptions.plugins.push(require('postcss-pxtorem')({ 'rootValue': 37.5, propList: ['*'] }));
     }
     function generateLoaders (loader = null, loaderOptions = {}) {

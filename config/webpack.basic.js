@@ -8,12 +8,19 @@ const utils = require('./utils');
 const getBabelConfig = require('./babelConfig');
 const getEntries = require('./getEntries');
 const { VueLoaderPlugin } = require('vue-loader');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
+const path = require('path');
 module.exports = function webpackBuild (config) {
+    const { env, outPutPath, assetsPath, framework, projectSourcePath } = config;
     const babelConfigOptions = getBabelConfig(config);
     const { webpackConfigEnties, HtmlWebpackPlugins } = getEntries(config);
     const webpackConfig = {
         entry: webpackConfigEnties,
+        output: {
+            path: path.resolve(__dirname, '../unity/' + outPutPath),
+            filename: assetsPath + '/[name].js',
+            chunkFilename: assetsPath + '/[name].js'
+        },
         resolve: {
             extensions: ['.js', 'jsx', '.vue', '.json', '.ts', '.tsx']
             // alias: { 'vue': 'vue/dist/vue.esm.js' }
@@ -21,7 +28,7 @@ module.exports = function webpackBuild (config) {
         module: {
             rules: [
                 ...(styleLoader({
-                    sourceMap: config.env !== 'production',
+                    sourceMap: env !== 'production',
                     usePostCSS: true
                 }, config)),
                 {
@@ -36,13 +43,13 @@ module.exports = function webpackBuild (config) {
         },
         plugins: [
             new MiniCssExtractPlugin({
-                filename: `${config.version}/[name].css`,
-                chunkFilename: `${config.version}/[name].css`,
+                filename: assetsPath + `/[name].css`,
+                chunkFilename: assetsPath + `/[name].css`,
                 ignoreOrder: true
             }),
             new CssMinimzerWebpackPlugin(),
             new ProgressBarPlugin({
-                format: '  building "' + config.projectSourcePath + '" [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
+                format: '  building "' + projectSourcePath + '" [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
                 clear: true
             }),
             ...HtmlWebpackPlugins
@@ -97,5 +104,5 @@ module.exports = function webpackBuild (config) {
     };
     // 遍历src文件，生成入口list;
     // 获取入口
-    return merge(webpackConfig, configByFramework[config.framework]);
+    return merge(webpackConfig, configByFramework[framework]);
 };
