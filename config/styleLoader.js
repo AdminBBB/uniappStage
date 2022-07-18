@@ -14,9 +14,7 @@ const cssLoaders = function (options, config) {
         options: {
             postcssOptions: {  // postcss 配置
                 plugins: [
-                    'postcss-cssnext',
-                    'postcss-url',
-                    'postcss-import'
+                    'postcss-preset-env'
                 ]
             }
         }
@@ -52,10 +50,11 @@ module.exports = function (options, config) {
         const loader = loaders[extension];
         rules.push({
             test: new RegExp('\\.' + extension + '$'),
-            exclude: /node_modules/,
+            // exclude: /node_modules/,
             use: loader
         });
     }
+    console.log(rules);
     return rules;
 };
 

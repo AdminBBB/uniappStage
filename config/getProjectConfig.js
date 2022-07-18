@@ -46,6 +46,5 @@ module.exports = function (projectSourcePaths, exCustomConfig) {
             projectConfigs = [];
         }
     }
-    console.log(projectConfigs);
     return projectConfigs;
 };

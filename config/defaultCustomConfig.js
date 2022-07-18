@@ -21,5 +21,6 @@ module.exports = {
     rootHtml: 'index', // 'index' ||  ['index','page']
     pages: false, // 'page'
     client: 'mobile', // 'mobile'
-    eGuardName: null // 'eg'
+    eGuardName: null, // 'eg'
+    productionGzipExtensions: ['js', 'css']
 };

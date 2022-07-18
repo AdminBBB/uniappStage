@@ -4,6 +4,7 @@ const librariesImportConfigsMap = {
         { libraryName: 'vant', libraryDirectory: 'es', style: true, 'camel2DashComponentName': true }
     ],
     react: [
+        { libraryName: '@chjq/uts', libraryDirectory: 'es', style: false, 'camel2DashComponentName': false },
         { libraryName: 'antd', libraryDirectory: 'lib', style: true, 'camel2DashComponentName': true },
         { libraryName: 'antd-mobile', libraryDirectory: 'lib', style: true, 'camel2DashComponentName': true },
         { libraryName: '@ant-design', libraryDirectory: 'lib', style: true, 'camel2DashComponentName': true }
