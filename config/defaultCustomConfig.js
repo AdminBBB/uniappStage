@@ -22,5 +22,9 @@ module.exports = {
     pages: false, // 'page'
     client: 'mobile', // 'mobile'
     eGuardName: null, // 'eg'
-    productionGzipExtensions: ['js', 'css']
+    productionGzipExtensions: ['js', 'css'],
+    autoOpenBrowser: true,
+    proxyTable: {},
+    errorOverlay: true,
+    devPort: false
 };

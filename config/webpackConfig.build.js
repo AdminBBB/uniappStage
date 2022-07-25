@@ -1,6 +1,5 @@
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 module.exports = function webpackBuild (config) {
-    console.log(config.productionGzipExtensions);
     return {
         mode: 'production',
         plugins: [

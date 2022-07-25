@@ -4,6 +4,7 @@
 const getProjectSourcePaths = require('./getProjectSourcePaths.js');
 const getProjectConfig = require('./getProjectConfig');
 const nodeBuild = require('./node.build');
+const nodeServer = require('./node.server');
 /*
 * 解析 node 参数
 * */
@@ -22,5 +23,8 @@ const projectConfigs = getProjectConfig(projectSourcePaths, { env });
 switch (env) {
     case 'production':
         nodeBuild(projectConfigs);
+        break;
+    case 'development':
+        nodeServer(projectConfigs[0]);
         break;
 }
