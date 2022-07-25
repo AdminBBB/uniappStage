@@ -21,7 +21,3 @@ exports.getProjectUnityPath = function (unityPath = '') {
 exports.getRootPath = function (rootPath = '') {
     return path.resolve(__dirname, '../' + rootPath);
 };
-exports.setProcessEnv = function (config) {
-    const { framework } = config;
-    process.env.FRAMEWORK_TYPE = framework;
-};

@@ -54,7 +54,6 @@ module.exports = function (options, config) {
             use: loader
         });
     }
-    console.log(rules);
     return rules;
 };
 

@@ -18,11 +18,11 @@ const { merge } = require('webpack-merge');
 const webpackConfigBasic = require('./webpackConfig.basic');
 const webpackConfigBuild = require('./webpackConfig.build');
 const utils = require('./utils');
-const pw = function (webpackConfig) {
+const pw = function (webpackConfig, projectSourcePath) {
     return new Promise((resolve, reject) => {
         webpack(webpackConfig, (err, stats) => {
             if (err) {
-                reject('Build ' + webpackConfig.projectName + 'failed with errors.\n');
+                reject('Build ' + projectSourcePath + 'failed with errors.\n');
                 throw err.message;
             }
             process.stdout.write(stats.toString({
@@ -33,10 +33,10 @@ const pw = function (webpackConfig) {
                 chunkModules: false
             }) + '\n\n');
             if (stats.hasErrors()) {
-                reject('Build ' + webpackConfig.projectName + 'failed with errors.\n');
+                reject('Build ' + projectSourcePath + 'failed with errors.\n');
                 process.exit(1);
             }
-            resolve('Build ' + webpackConfig.projectName + ' complete.\n');
+            resolve('Build ' + projectSourcePath + ' complete.\n');
         });
     });
 };
@@ -49,11 +49,10 @@ module.exports = function nodeBuild (projectConfigs) {
             const rs = [];
             for (const config of projectConfigs) {
                 try {
-                    utils.setProcessEnv(config);
                     const webpackConfig = merge(webpackConfigBasic(config), webpackConfigBuild(config));
-                    const r = await pw(webpackConfig);
+                    const r = await pw(webpackConfig, config.projectSourcePath);
                     console.log(chalk.cyan(r));
-                    rs.push(config.projectName);
+                    rs.push(config.projectSourcePath);
                 } catch (e) {
                     console.log(chalk.cyan(e));
                 }

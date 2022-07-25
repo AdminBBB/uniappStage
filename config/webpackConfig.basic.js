@@ -15,6 +15,7 @@ module.exports = function webpackBuild (config) {
     const babelConfigOptions = getBabelConfig(config);
     const { webpackConfigEnties, HtmlWebpackPlugins } = getEntries(config);
     const webpackConfig = {
+        stats: 'none',
         entry: webpackConfigEnties,
         devtool: false,
         output: {
@@ -24,7 +25,6 @@ module.exports = function webpackBuild (config) {
         },
         resolve: {
             extensions: ['.js', 'jsx', '.vue', '.json', '.ts', '.tsx']
-            // alias: { 'vue': 'vue/dist/vue.esm.js' }
         },
         module: {
             rules: [
@@ -63,7 +63,7 @@ module.exports = function webpackBuild (config) {
             }),
             new CssMinimzerWebpackPlugin(),
             new ProgressBarPlugin({
-                format: '  building "' + projectSourcePath + '" [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
+                format: 'building "' + projectSourcePath + '" [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)\t',
                 clear: true
             }),
             ...HtmlWebpackPlugins

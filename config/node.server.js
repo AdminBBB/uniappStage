@@ -14,6 +14,7 @@
 const chalk = require('chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
+const FriendlyErrorsPlugin = require('@soda/friendly-errors-webpack-plugin');
 const portfinder = require('portfinder');
 const { merge } = require('webpack-merge');
 const webpackConfigDev = require('./webpackConfig.dev');
@@ -22,35 +23,37 @@ module.exports = function (config) {
     const webpackConfig = merge(webpackConfigBasic(config), webpackConfigDev(config));
     const preCongfig = new Promise((resolve, reject) => {
         if (config && webpackConfig) {
-            process.env.PROJECT_CLIENT = config.client;
-            process.env.FRAMEWORK_TYPE = config.framework = config.framework || 'react';
             const devOptions = {
-                // clientLogLevel: 'error',
-                // contentBase: false,
-                host: 'localhost', // can be overwritten by process.env.HOST
-                port: 8080,
+                host: '127.0.0.1', // can be overwritten by process.env.HOST
                 open: config.autoOpenBrowser,
-                // hot: true,
-                // inline: true,
-                // quiet: true,//当启用该配置，除了初始化信息会被写到console中，其他任何信息都不会被写进去。errors和warnings也不会被写到console中。
-                // noInfo: true, // 启用noInfo，类似webpack bundle启动或保存的信息将会被隐藏，Errors和warnings仍会被显示。
-                compress: true,//是否启用gzip压缩
+                client: {
+                    logging: 'error',
+                    overlay: config.errorOverlay,
+                    progress: true,
+                    webSocketTransport: config.webSocketServer,
+                    webSocketURL: config.webSocketURL
+                },
+                webSocketServer: config.webSocketServer,
+                https: config.https,
+                headers: config.headers,
+                compress: config.devCompress,//是否启用gzip压缩
                 proxy: config.proxyTable,
-                // 在浏览器上全屏显示编译的errors或warnings。
-                headers: config.headers
-                // historyApiFallback: {
-                //     rewrites: [
-                //         { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') }
-                //     ]
-                // },
+                historyApiFallback: config.historyApiFallback,
+                hot: config.devHot
             };
-            portfinder.basePort = process.env.PORT || config.devPort;
+            portfinder.basePort = config.devbasePort;
             portfinder.getPort((err, port) => {
                 if (err) {
                     reject(err);
                 } else {
-                    process.env.PORT = port;// publish the new Port, necessary for e2e tests
+                    // publish the new Port, necessary for e2e tests
                     devOptions.port = port; // add port to server config
+                    webpackConfig.plugins.push(new FriendlyErrorsPlugin({// Add FriendlyErrorsPlugin
+                        compilationSuccessInfo: {
+                            messages: [`Your application is running here:\n\n` + chalk.green.bold(`\t${config.devHost}:${port}`) + '\n']
+                        },
+                        clearConsole: true
+                    }));
                     resolve({ webpackConfig, devOptions });
                 }
             });
@@ -59,11 +62,8 @@ module.exports = function (config) {
         }
     });
     preCongfig.then((res) => {
-        console.log(res);
-        const server = new WebpackDevServer(webpack(res.webpackConfig), res.devOptions);
-        server.listen(res.devOptions.port, config.host, () => {
-            console.log(chalk.red(`Your application is running here:  `));
-        });
+        const server = new WebpackDevServer(res.devOptions, webpack(res.webpackConfig));
+        server.start();
     }).catch((e) => {
         console.log(e);
     });

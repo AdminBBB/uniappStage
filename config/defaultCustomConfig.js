@@ -23,8 +23,32 @@ module.exports = {
     client: 'mobile', // 'mobile'
     eGuardName: null, // 'eg'
     productionGzipExtensions: ['js', 'css'],
-    autoOpenBrowser: true,
-    proxyTable: {},
+    // devServer
+    autoOpenBrowser: true, // 启动devServer 后是否自动打开浏览器
+    autoOpenPage: '',
     errorOverlay: true,
-    devPort: false
+    warningsOverlay: false,
+    devHost: 'localhost',
+    devbasePort: 8080, // 略
+    proxyTable: {},
+    webSocketURL: {},
+    webSocketServer: 'ws', // 未经验证
+    devCompress: true,
+    devHttps: false,
+    // devHttps: {
+    //     key: fs.readFileSync('/path/to/server.key'),
+    //     cert: fs.readFileSync('/path/to/server.crt'),
+    //     ca: fs.readFileSync('/path/to/ca.pem')
+    // },
+    devHot: 'only',
+    devHeaders: {},
+    historyApiFallback: false
+    // historyApiFallback: {
+    //     rewrites: [ // 通过传递一个object来对该共呢个做更多的定
+    //         { from: /^\/$/, to: '/views/landing.html' },
+    //         { from: /^\/subpage/, to: '/views/subpage.html' },
+    //         { from: /./, to: '/views/404.html' }
+    //     ],
+    //     disableDotRule: true // 当在路径中使用.符号，需要使用disableDotRule配置。
+    // },
 };

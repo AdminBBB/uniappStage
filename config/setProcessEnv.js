@@ -11,7 +11,4 @@
  * @author wangshuyan@cmhi.chinamobile.com
  * @date 2022/7/13
  * @version */
-module.exports = function (config) {
-    const { framework } = config;
-    process.env.FRAMEWORK_TYPE = framework;
-};
+ 
