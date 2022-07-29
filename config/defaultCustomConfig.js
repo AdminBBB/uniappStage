@@ -1,6 +1,6 @@
 /**
- * File Created by wangshuyan@cmhi.chinamobile.com at 2022/7/10.
- * Copyright 2022/7/10 CMCC Corporation Limited. * All rights reserved.
+ * File Created by wangshuyan@cmhi.chinamobile.com at 2022/7/28 .
+ * Copyright 2022/7/28  CMCC Corporation Limited. * All rights reserved.
  *
  * This software is the confidential and proprietary information of
  * ZYHY Company. ("Confidential Information"). You shall not
@@ -9,7 +9,7 @@
  *
  * @Desc
  * @author wangshuyan@cmhi.chinamobile.com
- * @date 2022/7/10
+ * @date 2022/7/28
  * @version */
 module.exports = {
     projectSourcePath: '', // user/myHomeIndex
@@ -22,10 +22,9 @@ module.exports = {
     pages: false, // 'page'
     client: 'mobile', // 'mobile'
     eGuardName: null, // 'eg'
-    productionGzipExtensions: ['js', 'css'],
+    productionGzipExtensions: false,
     // devServer
-    autoOpenBrowser: true, // 启动devServer 后是否自动打开浏览器
-    autoOpenPage: '',
+    autoOpenPage: true,// 启动devServer 后是否自动打开浏览器
     errorOverlay: true,
     warningsOverlay: false,
     devHost: 'localhost',

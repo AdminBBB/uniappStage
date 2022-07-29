@@ -21,11 +21,21 @@ const webpackConfigDev = require('./webpackConfig.dev');
 const webpackConfigBasic = require('./webpackConfig.basic');
 module.exports = function (config) {
     const webpackConfig = merge(webpackConfigBasic(config), webpackConfigDev(config));
+    const proxyTable = {};
+    Object.entries((config?.proxy ?? {})).forEach(proxyItem => {
+        const [apiKey, apiValue] = proxyItem;
+        proxyTable[apiKey] = {
+            target: apiValue,
+            host: apiValue,
+            changeOrigin: true,
+            secure: false
+        };
+    });
     const preCongfig = new Promise((resolve, reject) => {
         if (config && webpackConfig) {
             const devOptions = {
-                host: '127.0.0.1', // can be overwritten by process.env.HOST
-                open: config.autoOpenBrowser,
+                host: config.devHost, // can be overwritten by process.env.HOST
+                open: typeof config.autoOpenPage === 'string' ? [config.autoOpenPage] : config.autoOpenPage,
                 client: {
                     logging: 'error',
                     overlay: config.errorOverlay,
@@ -37,9 +47,9 @@ module.exports = function (config) {
                 https: config.https,
                 headers: config.headers,
                 compress: config.devCompress,//是否启用gzip压缩
-                proxy: config.proxyTable,
+                proxy: proxyTable,
                 historyApiFallback: config.historyApiFallback,
-                hot: config.devHot
+                hot: true
             };
             portfinder.basePort = config.devbasePort;
             portfinder.getPort((err, port) => {
@@ -50,7 +60,7 @@ module.exports = function (config) {
                     devOptions.port = port; // add port to server config
                     webpackConfig.plugins.push(new FriendlyErrorsPlugin({// Add FriendlyErrorsPlugin
                         compilationSuccessInfo: {
-                            messages: [`Your application is running here:\n\n` + chalk.green.bold(`\t${config.devHost}:${port}`) + '\n']
+                            messages: [`Your application is running here:${chalk.green.bold(`\t${config.devHost}:${port}`)}`]
                         },
                         clearConsole: true
                     }));

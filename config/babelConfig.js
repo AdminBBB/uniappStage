@@ -1,10 +1,25 @@
+/**
+ * File Created by wangshuyan@cmhi.chinamobile.com at 2022/7/28 .
+ * Copyright 2022/7/28  CMCC Corporation Limited. * All rights reserved.
+ *
+ * This software is the confidential and proprietary information of
+ * ZYHY Company. ("Confidential Information"). You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license. *
+ *
+ * @Desc
+ * @author wangshuyan@cmhi.chinamobile.com
+ * @date 2022/7/28
+ * @version */
 const { merge } = require('webpack-merge');
 const librariesImportConfigsMap = {
+    public: [
+        { libraryName: '@hjq/uts', libraryDirectory: 'lib', style: false, 'camel2DashComponentName': false }
+    ],
     vue: [
         { libraryName: 'vant', libraryDirectory: 'es', style: true, 'camel2DashComponentName': true }
     ],
     react: [
-        { libraryName: '@chjq/uts', libraryDirectory: 'es', style: false, 'camel2DashComponentName': false },
         { libraryName: 'antd', libraryDirectory: 'lib', style: true, 'camel2DashComponentName': true },
         { libraryName: 'antd-mobile', libraryDirectory: 'lib', style: true, 'camel2DashComponentName': true },
         { libraryName: '@ant-design', libraryDirectory: 'lib', style: true, 'camel2DashComponentName': true }
@@ -16,7 +31,7 @@ module.exports = function babelConfig (config) {
         'style': false,
         'camel2DashComponentName': false
     };
-    const librariesImportConfigs = librariesImportConfigsMap[config.framework].map(c => {
+    const librariesImportConfigs = [...librariesImportConfigsMap.public, ...librariesImportConfigsMap[config.framework]].map(c => {
         const importConfig = ['import'];
         importConfig.push(Object.assign({}, defaultImportConfig, c), c.libraryName);
         return importConfig;
@@ -24,15 +39,11 @@ module.exports = function babelConfig (config) {
     const _babelConfig = {
         'plugins': [
             ...librariesImportConfigs,
-            // '@babel/plugin-transform-modules-umd',
-            // '@babel/plugin-proposal-decorators',
-            // '@babel/plugin-proposal-class-properties',
-            // '@babel/plugin-transform-async-to-generator'
             '@babel/plugin-transform-modules-commonjs',
             [
                 '@babel/plugin-transform-runtime',
                 {
-                    corejs: { version: 3 }
+                    corejs: 3
                 }
             ]
         ],
@@ -41,7 +52,7 @@ module.exports = function babelConfig (config) {
                 '@babel/preset-env',
                 {
                     'useBuiltIns': 'usage',
-                    corejs: { version: 3 }
+                    corejs: 3
                 }
             ]
         ]

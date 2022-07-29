@@ -1,13 +1,24 @@
+/**
+ * File Created by wangshuyan@cmhi.chinamobile.com at 2022/7/28 .
+ * Copyright 2022/7/28  CMCC Corporation Limited. * All rights reserved.
+ *
+ * This software is the confidential and proprietary information of
+ * ZYHY Company. ("Confidential Information"). You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license. *
+ *
+ * @Desc
+ * @author wangshuyan@cmhi.chinamobile.com
+ * @date 2022/7/28
+ * @version */
 const chalk = require('chalk');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimzerWebpackPlugin = require('css-minimizer-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const styleLoader = require('./styleLoader');
 const utils = require('./utils');
 const getBabelConfig = require('./babelConfig');
 const getEntries = require('./getEntries');
-const { VueLoaderPlugin } = require('vue-loader');
 const { merge } = require('webpack-merge');
 const path = require('path');
 module.exports = function webpackBuild (config) {
@@ -15,9 +26,15 @@ module.exports = function webpackBuild (config) {
     const babelConfigOptions = getBabelConfig(config);
     const { webpackConfigEnties, HtmlWebpackPlugins } = getEntries(config);
     const webpackConfig = {
-        stats: 'none',
+        target: env === 'development' ? 'web' : 'browserslist',
+        cache: {
+            type: 'filesystem',
+            allowCollectingMemory: true,
+            version: '1.0.3'
+        },
+        stats: 'errors-only',
         entry: webpackConfigEnties,
-        devtool: false,
+        devtool: env !== 'production' && 'eval-cheap-module-source-map',
         output: {
             path: path.resolve(__dirname, '../unity/' + outPutPath),
             filename: assetsPath + '/[name].js' + (config.withHash ? '?[fullhash]' : ''),
@@ -29,16 +46,16 @@ module.exports = function webpackBuild (config) {
         module: {
             rules: [
                 ...(styleLoader({
-                    sourceMap: env !== 'production',
-                    usePostCSS: true
+                    sourceMap: env !== 'production'
                 }, config)),
                 {
                     test: /\.js|jsx$/,
                     use: {
-                        loader: 'babel-loader',
+                        loader: 'babel-loader?cacheDirectory=true',
                         options: babelConfigOptions
                     },
-                    include: [utils.getRootPath('common'), utils.getRootPath('src'), utils.getRootPath('node_modules/@chjq')]
+                    include: [utils.getRootPath('common'), utils.getRootPath('src')],
+                    exclude: /node_modules/
                 },
                 {
                     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -61,9 +78,11 @@ module.exports = function webpackBuild (config) {
                 chunkFilename: assetsPath + `/[name].css${config.withHash ? '?[fullhash]' : ''}`,
                 ignoreOrder: true
             }),
-            new CssMinimzerWebpackPlugin(),
+            new CssMinimzerWebpackPlugin({
+                parallel: true
+            }),
             new ProgressBarPlugin({
-                format: 'building "' + projectSourcePath + '" [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)\t',
+                format: ':msg  "' + projectSourcePath + '" [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)\t',
                 clear: true
             }),
             ...HtmlWebpackPlugins
@@ -78,17 +97,12 @@ module.exports = function webpackBuild (config) {
             maxAssetSize: (config.env === 'production') ? 30000000 : 500000000
         },
         optimization: {
+            usedExports: true,
             minimize: true,
-            minimizer: [
-                new TerserPlugin({
-                    terserOptions: {
-                        sourceMap: false // set to true if you want JS source maps,
-                    },
-                    extractComments: false
-                })
-            ],
             splitChunks: {
                 chunks: 'all',
+                minSize: 30000,
+                maxSize: 3000000,
                 minChunks: 1,
                 maxAsyncRequests: 5,
                 maxInitialRequests: 3,
@@ -99,40 +113,43 @@ module.exports = function webpackBuild (config) {
                         test: /[\\/]node_modules[\\/]/,
                         chunks: 'all',
                         name: 'vendor',
-                        priority: 10, // 优先
+                        priority: -10, // 优先
                         enforce: true
                     },
                     common: {
                         test: /[\\/]common[\\/]|[\\/]utils[\\/]/,
                         chunks: 'all',
                         name: 'common',
-                        priority: 10, // 优先
+                        priority: -10, // 优先
                         enforce: true
                     }
                 }
             }
         }
     };
-    let configByFramework = {
-        react: {},
-        vue: {
-            module: {
-                rules: [
-                    {
-                        test: /\.vue$/,
-                        use: {
-                            loader: 'vue-loader'
-                        },
-                        include: [utils.getRootPath('common'), utils.getRootPath('src')]
-                    }
-                ]
-            },
-            plugins: [
-                new VueLoaderPlugin()
-            ]
+    let webpackConfigTypeofFramework = (() => {
+        switch (framework) {
+            case 'vue':
+                const { VueLoaderPlugin } = require('vue-loader');
+                return {
+                    module: {
+                        rules: [
+                            {
+                                test: /\.vue$/,
+                                use: {
+                                    loader: 'vue-loader'
+                                },
+                                include: [utils.getRootPath('common'), utils.getRootPath('src')]
+                            }
+                        ]
+                    },
+                    plugins: [
+                        new VueLoaderPlugin()
+                    ]
+                };
+            case 'react':
+                return {};
         }
-    };
-    // 遍历src文件，生成入口list;
-    // 获取入口
-    return merge(webpackConfig, configByFramework[framework]);
+    })(framework);
+    return merge(webpackConfig, webpackConfigTypeofFramework);
 };
