@@ -20,6 +20,7 @@ const utils = require('./utils');
 const getBabelConfig = require('./babelConfig');
 const getEntries = require('./getEntries');
 const { merge } = require('webpack-merge');
+const tsConfig = require('./tsConfig');
 const path = require('path');
 module.exports = function webpackBuild (config) {
     const { env, outPutPath, assetsPath, framework, projectSourcePath } = config;
@@ -41,7 +42,7 @@ module.exports = function webpackBuild (config) {
             chunkFilename: assetsPath + '/[name].js' + (config.withHash ? '?[fullhash]' : '')
         },
         resolve: {
-            extensions: ['.js', 'jsx', '.vue', '.json', '.ts', '.tsx']
+            extensions: ['ts', '.tsx', '.js', 'jsx', '.vue', '.json', '.ts', '.tsx']
         },
         module: {
             rules: [
@@ -53,6 +54,15 @@ module.exports = function webpackBuild (config) {
                     use: {
                         loader: 'babel-loader?cacheDirectory=true',
                         options: babelConfigOptions
+                    },
+                    include: [utils.getRootPath('common'), utils.getRootPath('src')],
+                    exclude: /node_modules/
+                },
+                {
+                    test: /\.ts|tsx$/,
+                    use: {
+                        loader: 'ts-loader',
+                        options: tsConfig
                     },
                     include: [utils.getRootPath('common'), utils.getRootPath('src')],
                     exclude: /node_modules/

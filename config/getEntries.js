@@ -36,9 +36,10 @@ module.exports = function (config) {
                 rootJs = `{${config.rootHtml.join(',')}}`;
             }
         }
-        const files_pages = glob.sync(pages + '/**/index.js', options);
-        const files_root = glob.sync(rootJs + '.js', options);
+        const files_pages = glob.sync(pages + '/**/index.{js,ts,tsx}', options);
+        const files_root = glob.sync(rootJs + '.{js,ts,tsx}', options);
         const files = [...files_root, ...files_pages];
+        console.log(files);
         const _entries = [];
         let entry;
         let dirname;
@@ -46,7 +47,7 @@ module.exports = function (config) {
         for (let i = 0; i < files.length; i++) {
             entry = files[i];
             dirname = path.dirname(entry);
-            basename = path.basename(entry, '.js');
+            basename = path.basename(entry, path.extname(entry));
             const entryContent = {
                 content: [utils.getRootPath('common/index.js')],
                 pathname: (dirname === '.' ? '' : dirname + '/') + basename,
@@ -90,7 +91,6 @@ module.exports = function (config) {
             chunksSortMode: 'auto'
         }));
     });
- 
     return {
         webpackConfigEnties,
         HtmlWebpackPlugins
