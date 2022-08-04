@@ -15,6 +15,7 @@ const chalk = require('chalk');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimzerWebpackPlugin = require('css-minimizer-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const styleLoader = require('./styleLoader');
 const utils = require('./utils');
 const getBabelConfig = require('./babelConfig');
@@ -27,15 +28,16 @@ module.exports = function webpackBuild (config) {
     const babelConfigOptions = getBabelConfig(config);
     const { webpackConfigEnties, HtmlWebpackPlugins } = getEntries(config);
     const webpackConfig = {
-        target: env === 'development' ? 'web' : 'browserslist',
-        cache: {
-            type: 'filesystem',
-            allowCollectingMemory: true,
-            version: '1.0.3'
-        },
+        // profile: true,
+        // target: env === 'development' ? 'web' : 'browserslist',
+        // cache: {
+        //     type: 'filesystem',
+        //     allowCollectingMemory: true,
+        //     version: '1.0.1'
+        // },
         stats: 'errors-only',
         entry: webpackConfigEnties,
-        devtool: env !== 'production' && 'eval-cheap-module-source-map',
+        devtool: 'eval-cheap-module-source-map',
         output: {
             path: path.resolve(__dirname, '../unity/' + outPutPath),
             filename: assetsPath + '/[name].js' + (config.withHash ? '?[fullhash]' : ''),
@@ -55,8 +57,7 @@ module.exports = function webpackBuild (config) {
                         loader: 'babel-loader?cacheDirectory=true',
                         options: babelConfigOptions
                     },
-                    include: [utils.getRootPath('common'), utils.getRootPath('src')],
-                    exclude: /node_modules/
+                    include: [utils.getRootPath('common'), utils.getRootPath('src')]
                 },
                 {
                     test: /\.ts|tsx$/,
@@ -78,7 +79,7 @@ module.exports = function webpackBuild (config) {
                     generator: {
                         filename: assetsPath + '/images/[hash][ext][query]'
                     },
-                    include: [utils.getRootPath('common'), utils.getRootPath('src'), utils.getRootPath('node_modules/@chjq')]
+                    include: [utils.getRootPath('common'), utils.getRootPath('src')]
                 }
             ]
         },
@@ -109,6 +110,11 @@ module.exports = function webpackBuild (config) {
         optimization: {
             usedExports: true,
             minimize: true,
+            minimizer: [
+                new TerserPlugin({
+                    extractComments: false
+                })
+            ],
             splitChunks: {
                 chunks: 'all',
                 minSize: 30000,

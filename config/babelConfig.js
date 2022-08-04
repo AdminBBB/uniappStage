@@ -14,7 +14,7 @@
 const { merge } = require('webpack-merge');
 const librariesImportConfigsMap = {
     public: [
-        { libraryName: '@hjq/uts', libraryDirectory: 'lib', style: false, 'camel2DashComponentName': false }
+        { libraryName: '@hjq/uts', libraryDirectory: 'lib' }
     ],
     vue: [
         { libraryName: 'vant', libraryDirectory: 'es', style: true, 'camel2DashComponentName': true }

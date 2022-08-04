@@ -16,5 +16,29 @@ import './less/loading.less';
 
 const Ua = window.navigator.userAgent.toLowerCase();
 window.systemType = (/android|webos|iphone|ipod|ipad|blackberry|symbianos|windows phone/i).test(Ua) ? 'mobile' : 'pc';
-
-
+window.vDebuger = {
+    tvcTimer: 0,
+    trggerVc () {
+        const that = this;
+        if (!window.VConsole && that.tvcTimer < 20) {
+            that.tvcTimer++;
+            setTimeout(() => {
+                that.trggerVc();
+            }, 100);
+        } else {
+            new window.VConsole();
+        }
+    },
+    set launch (v) {
+        try {
+            if (v) {
+                const vdebugerInc = document.createElement('script');
+                vdebugerInc.src = 'https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js';
+                document.body.appendChild(vdebugerInc);
+                this.trggerVc();
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+};

@@ -47,7 +47,9 @@ module.exports = function (projectSourcePaths, exCustomConfig) {
             if (fs.existsSync(utils.getProjectResPath(projectSourcePath))) {
                 projectConfigs.push(getProjectConfigContent(projectSourcePath, exCustomConfig));
             } else {
-                console.log(chalk.red('error:不存在的项目目录 -- ' + projectSourcePaths));
+                console.log(chalk.red(`*************** error *******************`));
+                console.log(chalk.red(`  不存在的项目目录 : ${projectSourcePaths} `));
+                console.log(chalk.red(`*****************************************\n `));
             }
         }
     } else {

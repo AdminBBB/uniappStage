@@ -29,14 +29,16 @@ const projectSourcePaths = getProjectSourcePaths(projectSourcePathsFromArgv);
 * getProjectConfigCustom 获取运行的项目的自定义参数项
 * */
 const projectConfigs = getProjectConfig(projectSourcePaths, { env });
-/*
-* 获取webpack配置信息  获取项目配置
-* */
-switch (env) {
-    case 'production':
-        nodeBuild(projectConfigs);
-        break;
-    case 'development':
-        nodeServer(projectConfigs[0]);
-        break;
+if (projectConfigs.length > 0) {
+    /*
+    * 获取webpack配置信息  获取项目配置
+    * */
+    switch (env) {
+        case 'production':
+            nodeBuild(projectConfigs);
+            break;
+        case 'development':
+            nodeServer(projectConfigs[0]);
+            break;
+    }
 }

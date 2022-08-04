@@ -17,29 +17,27 @@ const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const webpackConfigBasic = require('./webpackConfig.basic');
 const webpackConfigBuild = require('./webpackConfig.build');
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
-const smp = new SpeedMeasurePlugin();
 const utils = require('./utils');
 const pw = function (webpackConfig, projectSourcePath) {
     return new Promise((resolve, reject) => {
         webpack(webpackConfig, (err, stats) => {
-            if (err) {
-                reject('Build ' + projectSourcePath + 'failed with errors.\n');
-                throw err.message;
-            }
-            process.stdout.write(stats.toString({
-                colors: true,
-                modules: false,
-                children: false, // If you are using ts-loader, setting this to true will make TypeScript errors show up during build.
-                chunks: false,
-                chunkModules: false
-            }) + '\n\n');
-            if (stats.hasErrors()) {
-                reject('Build ' + projectSourcePath + 'failed with errors.\n');
-                process.exit(1);
-            }
-            resolve('Build ' + projectSourcePath + ' complete.\n');
-        });
+                if (err) {
+                    reject('Build ' + projectSourcePath + 'failed with errors.\n');
+                    throw err.message;
+                }
+                process.stdout.write(stats.toString({
+                    colors: true,
+                    modules: false,
+                    children: false, // If you are using ts-loader, setting this to true will make TypeScript errors show up during build.
+                    chunks: false,
+                    chunkModules: false
+                }) + '\n\n');
+                if (stats.hasErrors()) {
+                    reject('Build ' + projectSourcePath + 'failed with errors.\n');
+                    process.exit(1);
+                }
+                resolve('Build ' + projectSourcePath + ' complete.\n');
+            });
     });
 };
 module.exports = function nodeBuild (projectConfigs) {
