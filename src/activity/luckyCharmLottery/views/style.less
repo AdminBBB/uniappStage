@@ -1,0 +1,59 @@
+.g-wrap {
+    width: 100vw; background-color: #57C8C5;
+}
+.bgC(@url,@size) {
+    background-image: url(@url);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: @size;
+    background-color: transparent;
+}
+.g-SlogenHeader {
+    position: relative;
+    width: 100vw; height: 155vw;padding: 1px 0;
+    background-color: #57C8C5;
+    .bgC('https://rescdn.hjq.komect.com/file16/appclientH5/appresource/image/web/web/x3/luckyCharmLottery_slogenheader.jpg', contain);
+    
+    .lottery_gitGroup_back,
+    .lotteryBollsWrap,
+    .lottery_gitGroup_front {
+        position: absolute; top: 0;left: 0;
+        width: 100%; height: 100%;
+        figure {
+            position: absolute;
+        }
+        
+    }
+    
+    .lottery_gitGroup_back,
+    .lottery_gitGroup_front {
+        figure, img {
+            display: block; width: 100%; margin: 0;padding: 0;
+        }
+    }
+    
+    
+    .lottery_gitGroup_back {
+        z-index: 100;
+    }
+    .lotteryBollsWrap {
+        z-index: 200;
+    }
+    .lottery_gitGroup_front {
+        z-index: 300;
+    }
+    
+    .lotteryBollsWrap {
+        display: flex;justify-content: center;
+        width: 75vw;height: 65vw; margin: 54vw auto;
+        .bgC('https://rescdn.hjq.komect.com/file16/appclientH5/appresource/image/web/web/x3/luckyCharmLottery_lotteryItemBg.png', 84%);
+        
+        .lotteryBtn {
+            position: absolute; bottom: 0;left: (75-47)/2vw;
+            width: 47vw; height: 16vw; border: none; background-color: transparent; margin: 0;padding: 0;
+            .bgC('http://rescdn.hjq.komect.com/file16/appclientH5/appresource/image/web/web/x3/luckyCharmLottery_lotteryBtn.png', contain);
+            font-size: 22px; line-height: 24px; color: #FFF;font-weight: bold; vertical-align: baseline;
+            span { font-size: 14px; font-weight: normal}
+        }
+    }
+}

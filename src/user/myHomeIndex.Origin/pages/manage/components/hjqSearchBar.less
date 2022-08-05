@@ -1,0 +1,38 @@
+
+.hjq-search{ box-sizing: border-box; position: relative;
+  background: #f2f5f5;
+  width: 100%; height: 52px;
+  display: flex; align-items: center;
+  padding: 10px 16px;
+  .searchInput{position: relative; box-sizing: border-box; padding: 4px 16px 4px 36px ;
+    flex-grow: 1; width: 100%; height: 32px; line-height: 24px; font-size: 14px;
+     border-radius: 30px;
+    background: url("./shop_icon_search_nor@2x.png") no-repeat;
+    background-size: 18px 17px; background-position: 10px center;
+    background-color: #FFF;
+
+    .u-input{width: 100%;
+      border: none; background-color: #FFF;  caret-color: #00D8AF;/*光标颜色*/
+    }
+    .searchClear{
+      position: absolute; top:0;  right:0; padding: 8px 10px; box-sizing: border-box;
+      width: 36px; height: 32px;
+      background-image: url(data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyOCAyOCc+PGNpcmNsZSBjeD0nMTQnIGN5PScxNCcgcj0nMTQnIGZpbGw9JyNjY2MnLz48cGF0aCBzdHJva2U9JyNmZmYnIHN0cm9rZS13aWR0aD0nMicgc3Ryb2tlLW1pdGVybGltaXQ9JzEwJyBkPSdNOCA4bDEyIDEyJy8+PHBhdGggZmlsbD0nbm9uZScgc3Ryb2tlPScjZmZmJyBzdHJva2Utd2lkdGg9JzInIHN0cm9rZS1taXRlcmxpbWl0PScxMCcgZD0nTTIwIDhMOCAyMCcvPjwvc3ZnPg==);
+      background-repeat: no-repeat;
+      background-size: 16px; background-position: center;
+    }
+  }
+  .searchSure {
+    white-space: nowrap; margin-left: 13px; font-size: 15px;
+    color: #00C5A1;
+    letter-spacing: -0.34px;
+    margin-right: 0; opacity: 1;
+    &.hide{
+      display: none;
+      opacity: 0; margin-right: -40px;
+    }
+    transition: margin-right .5s,opacity .5s;
+    transition-delay:0.1s;
+  }
+
+}

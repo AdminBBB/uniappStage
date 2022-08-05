@@ -1,0 +1,265 @@
+@import "../../../global";
+
+* {
+    user-select: none;
+}
+input{
+  user-select: auto;
+}
+html, body, #app { width: 100%; height: 100vh;
+    background-color: #f2f5f5;
+}
+
+.m-empty{position: absolute; top:0; left: 0;
+  width: 100%; height: 100%; background-color:#f2f5f5 ;
+  font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;color:#999;
+}
+.manage-content {height: 100vh; overflow-y: scroll;
+    .manage-wrap {
+        width: 100%; position: relative;
+        .ul-mem {position: relative; background-color: #FFF; padding: 11px 20px;box-sizing: border-box;
+            width: 100%; display: flex;align-items: flex-start; justify-content: flex-start; flex-wrap: wrap;
+            li {
+                clear: right;
+                width: 20%;
+                height: 68px;
+                //margin-left: 4px;
+                box-sizing: border-box;
+                padding: 5px 4px;
+                position: relative;float: left;
+                .li-mem {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    
+                    .img-head {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 25px;
+                        overflow: hidden;
+                        
+                        img {
+                            width: 100%;
+                        }
+                    }
+                    
+                    .img-add {
+                        background: url("./wojia_icon_tianjia@2x.png") no-repeat;
+                        background-size: 40px 40px;
+                    }
+                    
+                    .t-name {
+                        font-size: 12px;
+                        width: 100%;
+                        color: rgba(0, 0, 0, 0.50);
+                        line-height: 12px;
+                        text-align: center;
+                        height: 12px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+                
+                .mem-master {
+                    position: absolute;
+                    top: -2px;
+                    left: 41px;
+                    width: 19px;
+                    height: 17px;
+                    background: url("../images/manage/icon_master@2x.png") no-repeat;
+                    background-size: 100%;
+                }
+              .mem-inviting{
+                position: absolute;
+                top: 5px;
+                left: 50%;
+                margin-left: -20px;
+                width: 40px;
+                height: 40px;
+                background-color: rgba(0,0,0,0.5);
+                background-size: 100%;
+                border-radius: 20px; overflow: hidden;
+                font-size: 10px; line-height: 40px; color:white; text-align: center;
+              }
+            }
+        }
+    }
+    .quitBtn {
+        width: 100%; height: 48px; text-align: center; line-height: 48px;
+        color: rgba(255, 0, 0, 0.80);font-size: 16px; background-color: #FFF;
+    }
+   .changeBtn{
+     width: 100%; height: 48px; text-align: center; line-height: 48px; margin-bottom: 10px; font-size: 16px;
+     color: rgba(0,0,0,0.80); background-color: #FFF;
+   }
+}
+
+.manage-rec {
+    width: 100%; background-color: #FFF; margin-top: 10px;
+    .v1 {
+        font-size: 15px; height: 38px; line-height: 38px;
+        color: rgba(0, 0, 0, 0.80);
+        text-align: justify; margin-left: 16px;
+    }
+    .ul-rec {
+        width: 100%; box-sizing: border-box; padding: 0 0 0 16px;
+        .li-rec {box-sizing: border-box;
+            clear: right; width: 100%; border-bottom: 1px solid #ECECEC;
+            display: flex; align-items: center; justify-content: space-between;
+            box-sizing: border-box; padding: 12px 14px 12px 0;
+            &:last-child {
+                border-bottom: none;
+            }
+            .d1 {
+                width: 50px; height: 50px;
+                img {width: 100%;}
+            }
+            .d2 {
+                flex-grow: 2; margin-left: 6px;
+                .t1 {
+                    font-size: 16px;
+                    color: rgba(0, 0, 0, 0.80);
+                    line-height: 22px;
+                }
+                .t2 {
+                    font-size: 14px; line-height: 18px;
+                    color: rgba(0, 0, 0, 0.50);
+                }
+                .t3 {
+                    font-size: 14px; width: 150px; line-height: 18px;
+                    color: rgba(0, 0, 0, 0.50); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+                }
+            }
+            .d3 {
+                background-image: linear-gradient(-68deg, #00C5A1 0%, #00D8AF 100%);
+                width: 72px; height: 24px;color: #FFF; border-radius: 20px; text-align: center; line-height: 24px;
+            }
+            .d4 { width: 12px; height: 12px; margin-left: 10px;
+                background: url("./family_icon_close@2x.png") no-repeat;
+                background-size: 8px 8px; background-position: center;
+            }
+            
+        }
+    }
+}
+.am-modal-alert-content, .am-modal-propmt-content {
+    color: rgba(0, 0, 0, 0.80);
+}
+
+.op-list {
+    margin-top: 10px;
+    .am-list-body {
+        .am-list-item {
+            height: 48px;
+          .am-list-line .am-list-arrow {
+            background-image: url(@arrowImg);
+            width: 6px; height: 12px;
+          }
+            .am-list-line {
+                .am-list-content {
+                    font-size: 15px;
+                    color: rgba(0, 0, 0, 0.80);
+                }
+                .am-list-extra {
+                    font-size: 15px;
+                    color: rgba(0, 0, 0, 0.80);
+                }
+            }
+
+          &.itemDetail{
+            height: auto;
+            .am-list-line{
+              .am-list-content{
+                flex:auto;
+                padding: 16px 0;
+                .item-both{
+                  display: flex; justify-content: space-between;
+                  .l-left{
+                    overflow: hidden;
+                    p{
+                      overflow: hidden; text-overflow: ellipsis;
+                    }
+                  }
+                  .l-right{
+                    flex-shrink: 0;
+                    .am-switch input[type="checkbox"]:checked + .checkbox{
+                      background-image: linear-gradient(132deg, #00D8AF 0%, #00C5A1 100%);
+                    }
+                  }
+                }
+              }
+            }
+            .p-t1{
+              .small {
+                font-size: 12px;
+              }
+            }
+            .p-t2{
+              font-size: 11px;
+              color: rgba(0,0,0,0.50);
+            }
+          }
+        }
+    }
+    
+}
+* { touch-action: pan-y; }
+// 使用全局样式样式去掉
+
+.am-modal-wrap{
+  align-items: start;
+  .am-modal{margin-top: 40%;}
+}
+.am-modal-button-group-h .am-modal-button {
+    color: #00D8AF; font-size: 17px;
+    &::before {
+        color: #00D8AF;
+    }
+}
+
+.am-modal-button-group-v .am-modal-button {
+    color: #00D8AF; font-size: 17px;
+}
+.am-modal-button-group-h .am-modal-button:first-child {
+    color: rgba(0, 0, 0, 0.50); font-size: 17px;
+}
+
+.am-modal-alert-content {
+    text-align: left;
+}
+img {
+    -webkit-touch-callout: none;user-select: none;
+}
+div， p {
+    user-select: none;
+}
+
+.am-modal-input input {
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 4px; border: none;
+    box-sizing: border-box; padding: 0 10px;
+  color:rgba(0, 0, 0, 0.50);
+  caret-color: #00D8AF;/*光标颜色*/
+
+}
+.am-modal-input-container {
+    border: none;
+}
+.op-list .am-list-body .am-list-item .am-list-line .am-list-extra {
+    color: rgba(0, 0, 0, 0.50);
+}
+html:not([data-scale]) .am-modal-input-container::before {
+    border: none;
+}
+//html:not([data-scale]) .am-list-body::after {
+//    display: none;
+//}
+//
+//html:not([data-scale]) .am-list-body::before {
+//    display: none;
+//}
+

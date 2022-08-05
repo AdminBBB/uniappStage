@@ -1,0 +1,47 @@
+.result-wrap{
+  .succ-wrap, .fail-wrap{
+    padding-top: 40px;
+    display: flex; align-items: center; justify-content: flex-start; flex-direction: column;
+    .icon{
+      width: 80px; height: 80px; margin-bottom: 20px;
+    }
+    .title{
+      font-size: 24px;
+      line-height: 33px;
+      color: rgba(0,0,0,0.80);
+      text-align: center;
+      font-weight: 500;
+    }
+    .detail{margin-top: 2px;
+      font-size: 16px;
+      line-height: 22px;
+      color: rgba(0,0,0,0.50);
+      letter-spacing: 0;
+      text-align: center;
+      font-weight: 400;
+    }
+    .btn{
+      width: 350px; height: 40px;  margin: 30px auto 0; box-sizing: border-box;
+      border-radius: 20px; background-image: linear-gradient(152deg, #00D8AF 0%, #00C5A1 100%);
+      font-size: 17px;
+      color: #FFFFFF;
+      text-align: center;
+      line-height: 40px;
+
+    }
+  }
+  .succ-wrap{margin-bottom: 40px;
+    .icon{
+      background: url("./invite-icon-succ.png") no-repeat;
+      background-size: 100%;
+    }
+
+  }
+
+  .fail-wrap{margin-bottom: 110px;
+    .icon {
+      background: url("./invite-icon-fail.png") no-repeat;
+      background-size: 100%;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+.g-LauncherResourceUnit {
+    .UnitThingList {
+        .ant-tabs-content-holder { border: none; padding: 0}
+    }
+}
+
+.g-SupplyUnitTitleViewList {
+    padding: 16px;
+    li { border-bottom: 1px solid #DDD}
+    .m-SupplyUnitTitleItemView {
+        display: flex; align-items: center; justify-content: space-between;
+        height: 42px; margin-bottom: 8px;
+        .item {
+            flex-grow: 2;
+            display: flex;
+            .label { flex-grow: 0;flex-shrink: 0; width: 6em; text-align: right;
+                &:after {content: ':'}
+            }
+            .value { flex-grow: 2; padding-left: 1em}
+        }
+        .reviewResult {
+            flex-grow: 0; flex-shrink: 0;
+            width: 72px;padding-left: 1em;
+            .ant-tag {font-size: 14px;padding: 2px 8px;}
+        }
+        .operate {
+            flex-grow: 0; flex-shrink: 0;
+            display: flex;justify-content: flex-end;
+            width: 150px;padding-left: 1em }
+    }
+}
+

@@ -1,0 +1,63 @@
+.am-modal-wrap{
+  height: 100vh;
+}
+.am-modal-popup-slide-up{
+  .am-modal-content{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    .am-action-sheet-button-list-item{
+      height: 227px; padding: 0 ;
+      &.am-action-sheet-button-list-item-active{
+        background-color: #FFF;
+      }
+    }
+
+    .action-title{
+      width: 100%; height: 42px; padding: 8px 16px 0; box-sizing: border-box;
+      display: flex; align-items: center; justify-content: space-between;
+      .iconClose{width: 13px; height: 13px;
+        background: url("../images/manage/Group@2x.png") no-repeat;
+        background-size: 13px 13px;
+      }
+      .t-title{
+        color: rgba(0,0,0,0.80);
+        font-weight: bold;
+        font-size: 16px;
+        letter-spacing: -0.41px;
+        text-align: center;}
+      .t-sure{
+        font-size: 15px;
+        color: #00C5A1;
+        letter-spacing: -0.39px;
+        text-align: left;
+      }
+    }
+
+    .action-list{
+      width: 100%; height: 227px; padding: 0 0 12px 0; box-sizing: border-box;
+      display: flex; align-items: center; justify-content: flex-start;flex-wrap: wrap;
+      .m-tag{width: 72px; margin-left: 18px; height: 24px; line-height: 24px;box-sizing: border-box;
+        &.normal{
+          border: 1px solid #00D8AF; line-height: 24px;
+          border-radius: 100px;font-size: 14px;
+          color: #00C5A1;
+          letter-spacing: 0;
+        }
+        &.active{
+          background-image: linear-gradient(132deg, #00D8AF 0%, #00C5A1 100%); line-height: 24px;
+          border-radius: 100px;font-size: 14px;
+          color: #FFFFFF;
+          letter-spacing: 0;
+          //&::before{
+          //  border: none;
+          //  //border: 1px solid #00D8AF;
+          //}
+        }
+      }
+
+
+    }
+
+  }
+}

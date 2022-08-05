@@ -1,0 +1,82 @@
+img {
+    -webkit-touch-callout: none;user-select: none;
+}
+div, p, h2, h3, a {
+    user-select: none;
+}
+
+
+.error-to-reload {
+    display: flex;justify-content: center;align-items: center;
+    width: 100%; height: 100%;padding-top: 1px;box-sizing: border-box;
+    .content {
+        display: flex;justify-content: center;align-items: center;flex-direction: column;
+        margin-top: -50%;
+    }
+    img { display: block;width: 120px;}
+    p { margin: 16px; color: rgba(0, 0, 0, 0.30); font-size: 14px;}
+    .reloadBtn {
+        display: flex;justify-content: center;align-items: center; line-height: 24px;
+        width: 10em; height: 36px; border: 1px solid #00D8AF; border-radius: 40px;
+        font-size: 16px; color: #00D8AF}
+}
+.g-content {
+    padding: 64px 0 40px;
+    background-size: 100% auto; background-position: top; background-repeat: no-repeat;
+    ///* 开通特例 */
+    //&.open_2 {
+    //    &.android {
+    //        background-image: url("http://rescdn.hjq.komect.com/file16/appclientH5/appresource/image/web/web/x3/myHomeIndex_main_back_open_v2.png?123");
+    //    }
+    //    &.ios {
+    //        background-image: url("http://rescdn.hjq.komect.com/file16/appclientH5/appresource/image/web/web/x3/myHomeIndex_main_back_open_v2.png?123");
+    //    }
+    //}
+}
+.g-patterns {
+    padding: 0 16px;
+    li.patterns-container { width: 100%; box-sizing: border-box; margin-bottom: 10px;
+        &.defaultTemplate { background-color: #FFF; border-radius: 8px;}
+    }
+    .m-titlewrap { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px;
+        .p-h2 {display: flex; align-items: center;
+            margin: 0;color: rgba(0, 0, 0, 0.8);
+            font-size: 16px; font-weight: 500;}
+        h3 {display: flex; align-items: center;
+            margin: 0;
+            font-size: 14px; font-weight: normal;}
+        a {display: flex; align-items: center;
+            height: 20px; color: rgba(0, 0, 0, 0.5); font-size: 12px; line-height: 12px;
+            img {display: block; height: 100%;}
+            &:after {
+                width: 6.5px; height: 6.5px;
+                display: block;
+                border: 1px solid transparent;
+                border-top-color: rgba(0, 0, 0, 0.50);
+                border-right-color: rgba(0, 0, 0, 0.50);
+                transform: rotate(45deg);
+                transform-origin: center center;
+                content: '';
+                margin-bottom: 2px;
+            }
+        }
+    }
+    .patterns-content { width: 100%;box-sizing: border-box;}
+    .m-orderfigure { display: block;
+        width: 100%;margin: 0;padding: 0; border-radius: 6px; overflow: hidden;box-sizing: border-box;
+        img {display: block;width: 100%;}
+    }
+}
+
+.DebuggerRender {
+    padding: 20px;
+}
+.g-log {
+    position: fixed;bottom: 0; right: 0; opacity: .8;
+    margin: 0 16px; padding: 16px; background-color: #DDD;
+    h2 {font-size: 12px; color: #F30;}
+    a { background-color: #000;color: #FFF; }
+}
+
+
+
