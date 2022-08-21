@@ -16,7 +16,7 @@ import './style.less';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import { Table } from 'antd';
+import { Table, Tooltip } from 'antd';
 import { COMMON_CONTEXT } from '../../../../store';
 import { ITEM_STATUS_TXT, ITEM_TYPE_TXT, SYSTEM_TYPE_TXT, TAG_TYEP_TEXT, REVIEW_TXT, GRAY_STATUS_TXT, TABLE_PAGESIZE_OPTION } from '../../../../common/CONSTANT';
 import { getFirstItem, deleteObjNull } from '../../../../service/utils';
@@ -91,12 +91,16 @@ export function DataTable () {
         {
             title: '区域',
             dataIndex: 'regionCode',
-            width: 120,
+            width: 125,
             render: (regionCode, record, index) => {
                 const regionNames = (regionCode || '').split(',').map(code => {
                     return LcrDependencesData?.regionsMap?.[code];
-                }).join(',');
-                return <span>{regionNames}</span>;
+                }).join('，');
+                return regionNames.length <= 18 ?
+                    <span>{regionNames}</span> :
+                    <Tooltip title={regionNames}>
+                        {regionNames.substr(0, 18)}
+                    </Tooltip>;
             }
         },
         {
@@ -164,7 +168,7 @@ export function DataTable () {
             title: '最后编辑',
             dataIndex: ['updateBy', 'updateTime'],
             defaultSortOrder: 'descend',
-            width: 150,
+            width: 135,
             render: (text, record, index) => (
                 <span>{record.updateBy}<br />{moment(record.updateTime).format('YYYY/MM/DD HH:mm')}</span>
             )
