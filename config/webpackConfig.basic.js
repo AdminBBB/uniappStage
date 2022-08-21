@@ -37,7 +37,6 @@ module.exports = function webpackBuild (config) {
         // },
         stats: 'errors-only',
         entry: webpackConfigEnties,
-        devtool: 'eval-cheap-module-source-map',
         output: {
             path: path.resolve(__dirname, '../unity/' + outPutPath),
             filename: assetsPath + '/[name].js' + (config.withHash ? '?[fullhash]' : ''),
