@@ -13,6 +13,7 @@
  * @version */
 module.exports = function webpackConfigDev () {
     return {
-        mode: 'development'
+        mode: 'development',
+        devtool: 'eval-cheap-module-source-map'
     };
 };

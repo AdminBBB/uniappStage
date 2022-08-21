@@ -28,13 +28,13 @@ module.exports = function webpackBuild (config) {
     const babelConfigOptions = getBabelConfig(config);
     const { webpackConfigEnties, HtmlWebpackPlugins } = getEntries(config);
     const webpackConfig = {
-        // profile: true,
-        // target: env === 'development' ? 'web' : 'browserslist',
-        // cache: {
-        //     type: 'filesystem',
-        //     allowCollectingMemory: true,
-        //     version: '1.0.1'
-        // },
+        profile: true,
+        target: env === 'development' ? 'web' : 'browserslist',
+        cache: {
+            type: 'filesystem',
+            allowCollectingMemory: true,
+            version: config.webpackVersion
+        },
         stats: 'errors-only',
         entry: webpackConfigEnties,
         output: {
