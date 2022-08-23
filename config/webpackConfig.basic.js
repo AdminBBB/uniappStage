@@ -11,10 +11,9 @@
  * @author wangshuyan@cmhi.chinamobile.com
  * @date 2022/7/28
  * @version */
-const chalk = require('chalk');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimzerWebpackPlugin = require('css-minimizer-webpack-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const WebpackBar = require('webpackbar');
 const TerserPlugin = require('terser-webpack-plugin');
 const styleLoader = require('./styleLoader');
 const utils = require('./utils');
@@ -90,10 +89,7 @@ module.exports = function webpackBuild (config) {
             new CssMinimzerWebpackPlugin({
                 parallel: true
             }),
-            new ProgressBarPlugin({
-                format: ':msg  "' + projectSourcePath + '" [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)\t',
-                clear: true
-            }),
+            new WebpackBar({ profile: true, basic: true }),
             ...HtmlWebpackPlugins
         ],
         performance: {
