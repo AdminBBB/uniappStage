@@ -31,7 +31,7 @@ module.exports = function babelConfig (config) {
         'style': false,
         'camel2DashComponentName': false
     };
-    const librariesImportConfigs = [...librariesImportConfigsMap.public, ...librariesImportConfigsMap[config.framework]].map(c => {
+    const librariesImportConfigs = [...librariesImportConfigsMap.public, ...librariesImportConfigsMap[config.framework], ...(config.librariesImportConfigsMap || [])].map(c => {
         const importConfig = ['import'];
         importConfig.push(Object.assign({}, defaultImportConfig, c), c.libraryName);
         return importConfig;

@@ -16,6 +16,7 @@ module.exports = {
     projectPath: 'digitalhome',
     projectName: '', //  myHomeIndex
     version: 'assets',//  1.0.0
+    webpackVersion: '1.0.0',
     framework: 'react', // 'react'
     env: 'production', // 'production'
     rootHtml: 'index', // 'index' ||  ['index','page']

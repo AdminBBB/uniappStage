@@ -25,19 +25,19 @@ const tsConfig = require('./tsConfig');
 const path = require('path');
 module.exports = function webpackBuild (config) {
     const { env, outPutPath, assetsPath, framework, projectSourcePath } = config;
-    const babelConfigOptions = getBabelConfig(config);
+    const babelConfigOptions = merge(getBabelConfig(config), config.babelConfig || {});
+    const tsConfigOptions = merge(tsConfig, config.tsConfig || {});
     const { webpackConfigEnties, HtmlWebpackPlugins } = getEntries(config);
     const webpackConfig = {
-        // profile: true,
-        // target: env === 'development' ? 'web' : 'browserslist',
-        // cache: {
-        //     type: 'filesystem',
-        //     allowCollectingMemory: true,
-        //     version: '1.0.1'
-        // },
+        profile: true,
+        target: env === 'development' ? 'web' : 'browserslist',
+        cache: {
+            type: 'filesystem',
+            allowCollectingMemory: true,
+            version: config.webpackVersion
+        },
         stats: 'errors-only',
         entry: webpackConfigEnties,
-        devtool: 'eval-cheap-module-source-map',
         output: {
             path: path.resolve(__dirname, '../unity/' + outPutPath),
             filename: assetsPath + '/[name].js' + (config.withHash ? '?[fullhash]' : ''),
@@ -63,7 +63,7 @@ module.exports = function webpackBuild (config) {
                     test: /\.ts|tsx$/,
                     use: {
                         loader: 'ts-loader',
-                        options: tsConfig
+                        options: tsConfigOptions
                     },
                     include: [utils.getRootPath('common'), utils.getRootPath('src')],
                     exclude: /node_modules/

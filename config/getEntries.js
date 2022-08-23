@@ -39,7 +39,6 @@ module.exports = function (config) {
         const files_pages = glob.sync(pages + '/**/index.{js,ts,tsx}', options);
         const files_root = glob.sync(rootJs + '.{js,ts,tsx}', options);
         const files = [...files_root, ...files_pages];
-        console.log(files);
         const _entries = [];
         let entry;
         let dirname;
@@ -91,6 +90,7 @@ module.exports = function (config) {
             chunksSortMode: 'auto'
         }));
     });
+ 
     return {
         webpackConfigEnties,
         HtmlWebpackPlugins

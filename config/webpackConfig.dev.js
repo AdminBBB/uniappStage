@@ -11,8 +11,9 @@
  * @author wangshuyan@cmhi.chinamobile.com
  * @date 2022/7/28
  * @version */
-module.exports = function webpackBuild (config) {
+module.exports = function webpackConfigDev () {
     return {
-        mode: 'development'
+        mode: 'development',
+        devtool: 'eval-cheap-module-source-map'
     };
 };
