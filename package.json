@@ -51,9 +51,6 @@
     "> 1%"
   ],
   "dependencies": {
-    "@hjq/trace": "^1.6.1",
-    "@hjq/uniappbridge": "^1.5.0",
-    "@hjq/uts": "^1.6.2",
     "antd": "^4.22.6",
     "axios": "^0.27.2",
     "react": "^18.2.0",

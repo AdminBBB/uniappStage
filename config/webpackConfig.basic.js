@@ -21,12 +21,10 @@ const utils = require('./utils');
 const getBabelConfig = require('./babelConfig');
 const getEntries = require('./getEntries');
 const { merge } = require('webpack-merge');
-const tsConfig = require('./tsConfig');
 const path = require('path');
 module.exports = function webpackBuild (config) {
     const { env, outPutPath, assetsPath, framework, projectSourcePath } = config;
     const babelConfigOptions = merge(getBabelConfig(config), config.babelConfig || {});
-    const tsConfigOptions = merge(tsConfig, config.tsConfig || {});
     const { webpackConfigEnties, HtmlWebpackPlugins } = getEntries(config);
     const webpackConfig = {
         profile: true,
@@ -63,10 +61,10 @@ module.exports = function webpackBuild (config) {
                     test: /\.ts|tsx$/,
                     use: {
                         loader: 'ts-loader',
-                        options: tsConfigOptions
-                    },
-                    include: [utils.getRootPath('common'), utils.getRootPath('src')],
-                    exclude: /node_modules/
+                        options: Object.assign({
+                            configFile: path.resolve(__dirname, 'tsconfig.json')
+                        }, config.tsConfig || {})
+                    }
                 },
                 {
                     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

@@ -13,7 +13,7 @@
  * @version */
 module.exports = {
     projectSourcePath: '', // user/myHomeIndex
-    projectPath: 'digitalhome',
+    projectPath: '',
     projectName: '', //  myHomeIndex
     version: 'assets',//  1.0.0
     webpackVersion: '1.0.0',
