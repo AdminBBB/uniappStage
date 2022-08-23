@@ -11,6 +11,7 @@
  * @author wangshuyan@cmhi.chinamobile.com
  * @date 2022/7/19
  * @version */
+const path = require('path');
 const chalk = require('chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
@@ -36,6 +37,9 @@ module.exports = function (config) {
             const devOptions = {
                 host: config.devHost, // can be overwritten by process.env.HOST
                 open: typeof config.autoOpenPage === 'string' ? [config.autoOpenPage] : config.autoOpenPage,
+                static: {
+                    directory: path.join(__dirname, '../', config.projectSourcePath)
+                },
                 client: {
                     logging: 'error',
                     overlay: config.errorOverlay,
