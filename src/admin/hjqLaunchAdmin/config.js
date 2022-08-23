@@ -6,6 +6,7 @@ module.exports = {
     //  eGuardName: 'hjqLaunchAdminNew',
     projectPath: 'dh-appadmin',
     proxy: {
-        '/resourceManage/': 'https://test.hsop.komect.com:10443/'
+        // '/resourceManage/': 'https://test.hsop.komect.com:10443/'
+        '/resourceManage/': 'https://console.hjq.komect.com/'
     }
 };
