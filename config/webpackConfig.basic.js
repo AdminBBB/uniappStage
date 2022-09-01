@@ -29,9 +29,7 @@ module.exports = function webpackBuild (config) {
         profile: true,
         target: env === 'development' ? 'web' : 'browserslist',
         cache: {
-            type: 'filesystem',
-            allowCollectingMemory: true,
-            version: config.webpackVersion
+            type: 'filesystem'
         },
         stats: 'errors-only',
         entry: webpackConfigEnties,
@@ -96,10 +94,13 @@ module.exports = function webpackBuild (config) {
             // false | "error" | "warning" // 不显示性能提示 | 以错误形式提示 | 以警告...
             hints: 'warning',
             // 开发环境设置较大防止警告
-            // 根据入口起点的最大体积，控制webpack何时生成性能提示,整数类型,以字节为单位
-            maxEntrypointSize: (config.env === 'production') ? 30000000 : 500000000,
-            // 最大单个资源体积，默认250000 (bytes)
-            maxAssetSize: (config.env === 'production') ? 30000000 : 500000000
+            // 根据入口起点的最大体积，(总文件体积)，控制webpack何时生成性能提示,整数类型,以字节为单位 设置为总共不可以超过 2M,
+            maxEntrypointSize: (config.env === 'production') ? 2048000 : 500000000,
+            // 最大单个资源体积，默认819200 (bytes)  800kb
+            maxAssetSize: (config.env === 'production') ? 819200 : 500000000,
+            assetFilter: function (assetFilename) {
+                return /\.(js|css|ts|jsx)$/.test(assetFilename);
+            }
         },
         optimization: {
             usedExports: true,
@@ -111,27 +112,23 @@ module.exports = function webpackBuild (config) {
             ],
             splitChunks: {
                 chunks: 'all',
-                minSize: 30000,
-                maxSize: 3000000,
+                minSize: 307200, // 规定被提取的模块在压缩前的大小最小值，单位为字节，默认为102400，只有超过了102400字节才会被提取。
+                maxSize: config.chunkMaxSize * 1024 || 3072000,// 大于1M的 进行切割
                 minChunks: 1,
-                maxAsyncRequests: 5,
-                maxInitialRequests: 3,
+                maxAsyncRequests: 6, // 按需加载时的最大并行请求数。
+                maxInitialRequests: 4, // 入口点的最大并行请求数。
                 automaticNameDelimiter: '~',
                 name: false,
                 cacheGroups: {
                     vendor: {
-                        test: /[\\/]node_modules[\\/]/,
-                        chunks: 'all',
                         name: 'vendor',
-                        priority: -10, // 优先
-                        enforce: true
+                        test: /[\\/]node_modules[\\/]/,
+                        priority: -10 // 优先
                     },
                     common: {
-                        test: /[\\/]common[\\/]|[\\/]utils[\\/]/,
-                        chunks: 'all',
                         name: 'common',
-                        priority: -10, // 优先
-                        enforce: true
+                        test: /[\\/]common[\\/]|[\\/]utils[\\/]/,
+                        priority: -10 // 优先
                     }
                 }
             }
