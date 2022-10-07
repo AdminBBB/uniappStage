@@ -1,0 +1,12 @@
+.g-timeMange {
+    position: relative;
+    padding: 16px;
+    .returnLauncher { position: absolute; right: 16px;top: 16px; z-index: 10}
+    .theade-operate {display: flex;justify-content: space-around; align-items: center}
+    .btnWrap {text-align: center;
+        a {display: inline-block; margin: 0 8px;
+            &.active { opacity: 1 }
+            &.noactive { opacity: .5;pointer-events: none }
+        }
+    }
+}
