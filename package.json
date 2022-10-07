@@ -1,10 +1,10 @@
 {
-  "name": "uniappbuilder",
-  "version": "0.1.0",
+  "name": "uniappstage",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "webpack-merge": "^5.8.0",
     "@babel/core": "^7.16.0",
-    "@hjq/uts": "^1.6.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -58,6 +58,10 @@
     "terser-webpack-plugin": "^5.2.5",
     "web-vitals": "^2.1.4",
     "webpack": "^5.64.4",
+    "recursive-readdir": "^2.2.2",
+    "filesize": "^8.0.6",
+    "strip-ansi": "^6.0.1",
+    "gzip-size": "^6.0.0",
     "webpack-dev-server": "^4.6.0",
     "webpack-manifest-plugin": "^4.0.2",
     "workbox-webpack-plugin": "^6.4.1"
@@ -66,24 +70,12 @@
     "start": "node script/others/start.js",
     "build": "node script/others/build.js",
     "test": "node script/others/test.js",
-    "cli": "node script/cli.js"
+    "cli": "node script/cli.js production"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
     ]
   },
   "jest": {
@@ -161,8 +153,17 @@
       ]
     ]
   },
-  "proxy": "https://base.hjq.komect.com/",
-  "devDependencies": {
-    "webpack-merge": "^5.8.0"
-  }
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "https://base.hjq.komect.com/"
 }
