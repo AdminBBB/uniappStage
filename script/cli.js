@@ -3,6 +3,7 @@ const fs = require('fs-extra');
 const getAppConfig = require('./utils/getAppConfig');
 const checkBrowsers = require('./utils/browsersHelper');
 const checkRequireFiles = require('./utils/checkRequiredFiles');
+const configFactory = require('./webpack/webpack.config');
 const { measureFileSizesBeforeBuild, printFileSizesAfterBuild } = require('./utils/FileSizeReporter');
 // Do this as the first thing so that any code reading it knows the right env.
 // Makes the script crash on unhandled rejections instead of silently
@@ -30,6 +31,7 @@ const projectConfig = getAppConfig(projectSourcePathFromArgv);
                 dereference: true
             });
         }
+        const webpackConfig = configFactory(projectConfig, envFromArgv);
     } catch (e) {
         console.log(e);
     }
